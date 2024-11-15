@@ -1,0 +1,30 @@
+<%= form_with model: product, local: true do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :price %>
+    <%= form.number_field :price, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :image_url, "Upload Image" %>
+    <%= form.file_field :image_url %>
+
+    <% if product.present? && product.image_url.attached? %>
+      <p>Поточне зображення:</p>
+      <%= image_tag product.image_url %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

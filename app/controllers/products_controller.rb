@@ -21,6 +21,21 @@ class ProductsController < ApplicationController
     end
   end
 
+
+  def edit
+  end
+
+  def update
+    if @product.update(product_params)
+      redirect_to @product, notice: "Продукт успішно оновлено!"
+    else
+      render :edit, alert: "Помилка при оновленні продукту."
+    end
+  end
+
+
+
+
   def set_product
     @product = Product.find(params[:id])
   end
