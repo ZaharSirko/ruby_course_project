@@ -12,7 +12,14 @@ Rails.application.routes.draw do
       patch :update, as: :update_carts
     end
   end
+
   resources :orders, only: [ :new, :create ]
+
+  resource :profiles, only: [ :show, :edit, :update ]
+
+  resources :admins, only: [ :index ] do
+    patch :update_role, on: :member
+  end
 
 
 

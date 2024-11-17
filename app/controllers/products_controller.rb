@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :authorize_admin, except: %i[index show]
   # before_action :set_product, only: %i[show edit update destroy]
   def index
     @products = Product.all
@@ -33,7 +34,11 @@ class ProductsController < ApplicationController
     end
   end
 
-
+  def destroy
+    @product = Product.find(params[:id])
+    @product.destroy
+    redirect_to products_path, notice: "Продукт видалено!"
+  end
 
 
   def set_product
@@ -41,6 +46,10 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def authorize_admin
+    redirect_to root_path, alert: "У вас немає прав доступу!" unless current_user.admin?
+  end
 
   def product_params
     params.require(:product).permit(:name, :price, :description, :image_url)

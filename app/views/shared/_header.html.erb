@@ -1,0 +1,36 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+    <a class="navbar-brand" href="<%= root_path %>">Магазин смартфонів</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <% if user_signed_in? %>
+          <li class="nav-item">
+          <a class="nav-link" href="<%= profiles_path(current_user.id) %>">Мій профіль</a>
+        </li>
+        <% if  current_user.admin? %>
+  <li class="nav-item">
+    <a class="nav-link" href="<%= admins_path %>">Користувачі</a>
+  </li>
+<% end %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= cart_path(current_user.cart) %>">Кошик</a>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Вийти", destroy_user_session_path, method: :delete, class: "nav-link" %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= new_user_session_path %>">Увійти</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= new_user_registration_path %>">Зареєструватися</a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+</header>
