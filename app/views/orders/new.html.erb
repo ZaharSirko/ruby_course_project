@@ -1,0 +1,52 @@
+<%= form_with model: @order, local: true do |f| %>
+  <h3>Ваше замовлення</h3>
+
+  <% current_cart.cart_items.each do |item| %>
+    <p>
+      <%= item.product.name %> - 
+      <%= item.quantity %> x <%= number_to_currency(item.product.price) %>
+    </p>
+  <% end %>
+
+  <p>Загальна сума: <%= number_to_currency(current_cart.cart_items.sum { |item| item.product.price * item.quantity }) %></p>
+
+  <h3>Оберіть тип доставки</h3>
+  <%= f.select :delivery_type, Order::DELIVERY_TYPES.map { |name, value| [name, value] }, prompt: "Оберіть спосіб доставки" %>
+
+  <h3>Оплата через Stripe</h3>
+
+  <div id="card-element">
+   
+  </div>
+
+  <div id="card-errors" role="alert"></div>
+
+
+  <%= hidden_field_tag :stripeToken, "", id: "stripeToken" %>
+
+  <%= f.submit "Оформити замовлення", class: "btn btn-primary" %>
+<% end %>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const stripe = Stripe(window.STRIPE_PUBLIC_KEY);
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const {token, error} = await stripe.createToken(card);
+
+      if (error) {
+        const errorElement = document.getElementById('card-errors');
+        errorElement.textContent = error.message;
+      } else {
+        document.querySelector('#stripeToken').value = token.id;
+        form.submit();
+      }
+    });
+  });
+</script>

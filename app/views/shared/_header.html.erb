@@ -9,7 +9,7 @@
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
           <li class="nav-item">
-          <a class="nav-link" href="<%= profiles_path(current_user.id) %>">Мій профіль</a>
+          <a class="nav-link" href="<%= profiles_path %>">Мій профіль</a>
         </li>
           <% if current_user.admin? %>
           <li class="nav-item dropdown">

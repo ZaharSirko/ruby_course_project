@@ -23,5 +23,7 @@
 
     <%= render 'shared/footer' %> 
   </body>
-
+<script>
+  window.STRIPE_PUBLIC_KEY = "<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>";
+</script>
 </html>
