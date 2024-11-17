@@ -48,6 +48,8 @@ gem "stripe"
 
 gem "paypal-sdk-rest"
 
+gem "jquery-rails"
+
 
 
 group :development, :test do

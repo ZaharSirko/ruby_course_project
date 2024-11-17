@@ -1,0 +1,28 @@
+<h1>Admin Dashboard</h1>
+
+<%= link_to 'Створити продукт', new_admins_product_path, class: 'btn btn-primary' %>
+
+<table class="table table-bordered mt-3">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= number_to_currency(product.price) %></td>
+        <td><%= product.description %></td>
+        <td>
+         <%= link_to 'Редагувати', edit_admins_product_path(product), class: 'btn btn-warning btn-sm' %>
+
+          <%= button_to 'Видалити', admins_products_path(product), method: :delete, data: { confirm: 'Ви впевнені?' }, class: 'btn btn-danger btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

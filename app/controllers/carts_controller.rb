@@ -30,7 +30,7 @@ class CartsController < ApplicationController
     redirect_to cart_path(@cart), notice: "Кількість оновлено!"
   end
 
-  # Show the cart
+
   def show
     @cart = current_cart
   end

@@ -3,10 +3,6 @@ class AdminsController < ApplicationController
   before_action :authorize_admin
 
 
-  def index
-    @users = User.all
-  end
-
   def update_role
     user = User.find(params[:id])
     if user.update(role: params[:role])

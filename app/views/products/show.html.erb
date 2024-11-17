@@ -7,5 +7,5 @@
 <% else %>
   <p>Зображення поки що немає</p>
 <% end %>
-
+<%= button_to 'Додати до кошика', add_product_cart_path(current_cart, product_id: @product.id), method: :patch %>
 <%= link_to 'Повернутися до каталогу', products_path %>

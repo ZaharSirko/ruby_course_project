@@ -11,11 +11,17 @@
           <li class="nav-item">
           <a class="nav-link" href="<%= profiles_path(current_user.id) %>">Мій профіль</a>
         </li>
-        <% if  current_user.admin? %>
-  <li class="nav-item">
-    <a class="nav-link" href="<%= admins_path %>">Користувачі</a>
-  </li>
-<% end %>
+          <% if current_user.admin? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Панель адміністратора
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to 'Керувати продуктами', admins_products_path, class: 'dropdown-item' %>
+              <%= link_to 'Керувати користувачами', admins_users_path, class: 'dropdown-item' %>
+            </div>
+          </li>
+        <% end %>
         <li class="nav-item">
           <a class="nav-link" href="<%= cart_path(current_user.cart) %>">Кошик</a>
         </li>
