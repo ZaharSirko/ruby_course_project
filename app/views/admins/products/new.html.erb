@@ -14,25 +14,25 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name ,class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.number_field :price, step: "0.01" %>
+    <%= form.number_field :price, step: "0.01" ,class: "form-control"%>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description,class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :image_url %>
-    <%= form.file_field :image_url %>
+    <%= form.file_field :image_url,class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit "Додати продукт" %>
+    <%= form.submit "Додати продукт", class: "btn btn-primary"%>
   </div>
 <% end %>

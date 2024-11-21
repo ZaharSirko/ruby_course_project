@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :carts, only: [ :show, :update, :destroy ] do
     member do
       patch :add_product
+      patch :remove_item
     end
 
     collection do

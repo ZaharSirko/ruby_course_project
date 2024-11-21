@@ -12,12 +12,14 @@
           <%= number_field_tag :quantity, item.quantity, min: 1 %>
           <%= f.submit "Оновити кількість" %>
         <% end %>
+      <%= button_to 'Видалити', remove_item_cart_path(@cart, product_id: item.product.id), method: :patch, class: 'btn btn-danger' %>
+
       </li>
     <% end %>
   </ul>
   <p>Загальна вартість: <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></p>
 
- <%= button_to"Оформити замовлення", new_order_path , class: "btn btn-success" ,method: :get%>
-<%else%>
-<p>Ваш кошик порожній.</p>
+  <%= button_to "Оформити замовлення", new_order_path, class: "btn btn-success", method: :get %>
+<% else %>
+  <p>Ваш кошик порожній.</p>
 <% end %>

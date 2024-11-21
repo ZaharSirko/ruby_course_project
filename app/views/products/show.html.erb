@@ -1,12 +1,15 @@
 <h1><%= @product.name %></h1>
-<p><%= number_to_currency(@product.price) %></p>
-<p><%= @product.description %></p>
-<p>Кількість на складі: <%= @product.stock %></p>
-
 <% if @product.image_url.attached? %>
-  <%= image_tag @product.image_url %>
+  <%= image_tag @product.image_url, size: "250x250" %>
 <% else %>
   <p>Зображення поки що немає</p>
 <% end %>
+<p><%= number_to_currency(@product.price) %></p>
+<p><%= @product.description %></p>
+<p>Кількість на складі: <%= @product.stock %></p>
+ <% if user_signed_in? %>
 <%= button_to 'Додати до кошика', add_product_cart_path(current_cart, product_id: @product.id), method: :patch %>
+<% else %>
+  <p><em>Увійдіть, щоб додати до кошика.</em></p>
+  <% end %>
 <%= link_to 'Повернутися до каталогу', products_path %>

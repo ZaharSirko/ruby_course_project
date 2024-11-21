@@ -1,6 +1,16 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
 
+  def remove_item
+    @cart = current_cart
+    cart_item = @cart.cart_items.find_by(product_id: params[:product_id])
+    if cart_item
+      cart_item.destroy
+      redirect_to cart_path(@cart), notice: "Товар було видалено з кошика."
+    else
+      redirect_to cart_path(@cart), alert: "Не вдалося знайти товар у кошику."
+    end
+  end
 
   def add_product
     @cart = current_cart
