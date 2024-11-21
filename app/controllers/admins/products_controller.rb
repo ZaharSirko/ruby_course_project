@@ -21,13 +21,15 @@ class Admins::ProductsController < ApplicationController
 
 
   def edit
+    @product = Product.find(params[:id])
   end
 
   def update
+    @product = Product.find(params[:id])
     if @product.update(product_params)
-      redirect_to @product, notice: "Продукт успішно оновлено!"
+      redirect_to admins_products_path, notice: "Product updated successfully."
     else
-      render :edit, alert: "Помилка при оновленні продукту."
+      render :edit
     end
   end
 
@@ -49,6 +51,6 @@ class Admins::ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :image_url)
+    params.require(:product).permit(:name, :price, :description, :image_url, :stock)
   end
 end

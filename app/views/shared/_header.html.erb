@@ -12,15 +12,15 @@
           <a class="nav-link" href="<%= profiles_path %>">Мій профіль</a>
         </li>
           <% if current_user.admin? %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Панель адміністратора
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to 'Керувати продуктами', admins_products_path, class: 'dropdown-item' %>
-              <%= link_to 'Керувати користувачами', admins_users_path, class: 'dropdown-item' %>
-            </div>
-          </li>
+          <div class="nav-item  dropdown">
+      <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Панель адміністратора
+         </button>
+        <ul class="dropdown-menu">
+        <%= link_to 'Керувати продуктами', admins_products_path, class: 'dropdown-item' %>
+            <%= link_to 'Керувати користувачами', admins_users_path, class: 'dropdown-item' %>
+        </ul>
+        </div>
         <% end %>
         <li class="nav-item">
           <a class="nav-link" href="<%= cart_path(current_user.cart) %>">Кошик</a>

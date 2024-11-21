@@ -1,4 +1,35 @@
-<h1>Редагувати продукт</h1>
-<%= render 'form', product: @product %>
+<%= form_with model: [:admins, @product], local: true do |f| %>
+  <div class="mb-3">
+    <%= f.label :name, "Назва продукту" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  
+  <div class="mb-3">
+    <%= f.label :price, "Ціна" %>
+    <%= f.number_field :price, class: "form-control" %>
+  </div>
+  
+  <div class="mb-3">
+    <%= f.label :description, "Опис" %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  
+  <div class="mb-3">
+  <%= f.label :stock, "Кількість на складі" %>
+  <%= f.number_field :stock, class: "form-control", min: 0 %>
+</div>
 
-<%= link_to 'Назад', products_path %>
+  
+  <div class="mb-3">
+    <%= f.label :image_url, "Завантажити зображення" %>
+    <%= f.file_field :image_url, class: "form-control" %>
+    
+    <% if @product.present? && @product.image_url.attached? %>
+      <div class="mt-3">
+        <%= image_tag @product.image_url, class: "img-thumbnail", alt: "Product Image" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= f.submit "Оновити продукт", class: "btn btn-primary" %>
+<% end %>

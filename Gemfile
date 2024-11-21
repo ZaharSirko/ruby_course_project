@@ -50,6 +50,12 @@ gem "paypal-sdk-rest"
 
 gem "jquery-rails"
 
+gem "bootstrap", "~> 5.3.0"
+
+gem "popper_js", "~> 2.11"
+
+gem "sassc-rails"
+
 
 
 group :development, :test do

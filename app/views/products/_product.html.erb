@@ -1,6 +1,7 @@
 <div>
   <h2><%= product.name %></h2>
   <p>Ціна: <%= number_to_currency(product.price) %></p>
+  <p>Кількість на складі: <%= product.stock %></p>
   <p><%= product.description %></p>
   <%= button_to 'Додати до кошика', add_product_cart_path(current_cart, product_id: product.id), method: :patch %>
   <%= link_to 'Переглянути продукт', product_path(product), class: 'btn btn-secondary' %>
