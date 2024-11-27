@@ -2,7 +2,7 @@ class AdminsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_admin
 
-
+  protect_from_forgery unless: -> { request.path.match?(/users\/auth/) }
   def update_role
     user = User.find(params[:id])
     if user.update(role: params[:role])

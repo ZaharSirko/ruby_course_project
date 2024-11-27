@@ -9,15 +9,31 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable,
-  :omniauthable, omniauth_providers: [ :google_oauth2, :github ]
+  :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   def self.from_omniauth(auth)
-    user = User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
+    logger.debug "OAuth Response: #{auth.inspect}"
+
+    next_id = User.maximum(:id).to_i + 1
+
+    user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |new_user|
+      new_user.id = next_id
+      new_user.email = auth.info.email
+      new_user.name = auth.info.name
+      new_user.password = Devise.friendly_token[0, 20]
+      new_user.created_at = Time.current
+      new_user.updated_at = Time.current
     end
-    user
+
+    if user.save
+      ogger.debug "User successfully created or found: #{user.inspect}"
+      user
+    else
+      logger.error "User creation failed: #{user.errors.full_messages.join(", ")}"
+      nil
+    end
   end
+
 
   ROLES = %w[admin customer].freeze
 

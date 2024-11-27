@@ -35,16 +35,15 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "devise"
-
 gem "omniauth"
-
 gem "omniauth-google-oauth2"
-
 gem "omniauth-github"
 
 gem "dotenv-rails"
 
 gem "stripe"
+
+gem "omniauth-rails_csrf_protection"
 
 gem "paypal-sdk-rest"
 
