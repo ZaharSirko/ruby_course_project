@@ -11,7 +11,6 @@ Rails.application.routes.draw do
       patch :add_product
       patch :remove_item
     end
-
     collection do
       patch :update, as: :update_carts
     end

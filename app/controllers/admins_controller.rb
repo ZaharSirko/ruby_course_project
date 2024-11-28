@@ -6,9 +6,9 @@ class AdminsController < ApplicationController
   def update_role
     user = User.find(params[:id])
     if user.update(role: params[:role])
-      redirect_to users_path, notice: "Роль користувача змінено!"
+      redirect_to admins_users_path, notice: "Роль користувача змінено!"
     else
-      redirect_to users_path, alert: "Не вдалося змінити роль користувача."
+      redirect_to admins_users_path, alert: "Не вдалося змінити роль користувача."
     end
   end
 

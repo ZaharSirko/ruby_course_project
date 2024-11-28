@@ -4,16 +4,14 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   after_create :create_cart
-
-  before_save :set_default_role
+  before_validation :set_default_role, on: :create
+  before_save :set_id
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable,
   :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   def self.from_omniauth(auth)
-    logger.debug "OAuth Response: #{auth.inspect}"
-
     next_id = User.maximum(:id).to_i + 1
 
     user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |new_user|
@@ -24,12 +22,9 @@ class User < ApplicationRecord
       new_user.created_at = Time.current
       new_user.updated_at = Time.current
     end
-
     if user.save
-      ogger.debug "User successfully created or found: #{user.inspect}"
       user
     else
-      logger.error "User creation failed: #{user.errors.full_messages.join(", ")}"
       nil
     end
   end
@@ -55,5 +50,9 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= "customer"
+  end
+
+  def set_id
+    self.id ||= next_id = User.maximum(:id).to_i + 1
   end
 end

@@ -6,7 +6,6 @@ class OrdersController < ApplicationController
     @order = current_user.orders.build(order_params)
     @order.total_price = calculate_total_price
     @order.status = "Pending"
-
     if @order.save
       process_payment
       clear_cart
@@ -17,15 +16,17 @@ class OrdersController < ApplicationController
     end
   end
 
-
   private
-
   def order_params
     params.require(:order).permit(:delivery_type, :status)
   end
 
   def calculate_total_price
     current_cart.cart_items.sum { |item| item.product.price * item.quantity }
+  end
+
+  def clear_cart
+    current_cart.cart_items.destroy_all
   end
 
   def process_payment
@@ -35,9 +36,5 @@ class OrdersController < ApplicationController
       source: params[:stripeToken],
       description: "Order ID: #{@order.id}"
     )
-  end
-
-  def clear_cart
-    current_cart.cart_items.destroy_all
   end
 end

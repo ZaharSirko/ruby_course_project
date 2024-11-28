@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   helper_method :current_cart
-  # protect_from_forgery with: :exception, except: :omniauth_callbacks
+
 
   def current_cart
     return nil unless user_signed_in?

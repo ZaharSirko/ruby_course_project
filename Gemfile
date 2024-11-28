@@ -38,19 +38,18 @@ gem "devise"
 gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "omniauth-github"
+gem "omniauth-rails_csrf_protection"
 
 gem "dotenv-rails"
 
 gem "stripe"
 
-gem "omniauth-rails_csrf_protection"
+
 
 gem "paypal-sdk-rest"
 
 gem "jquery-rails"
-
 gem "bootstrap", "~> 5.3.0"
-
 gem "popper_js", "~> 2.11"
 
 gem "sassc-rails"
