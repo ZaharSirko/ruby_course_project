@@ -30,8 +30,9 @@ class Admins::ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
-    redirect_to products_path, notice: "Продукт видалено!"
+    redirect_to admins_products_path, notice: "Продукт видалено!"
   end
+
 
   def set_product
     @product = Product.find(params[:id])
